@@ -6,25 +6,22 @@ import PdfStorageABI from "../artifacts/contracts/PdfStorage.sol/PdfStorage.json
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultConfig, RainbowKitProvider, ConnectButton } from "@rainbow-me/rainbowkit";
 import { WagmiProvider } from "wagmi";
-import { sepolia, polygonMumbai } from "wagmi/chains";
+import { sepolia, polygonMumbai, lineaSepolia } from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const config = getDefaultConfig({
   appName: "My RainbowKit App",
   projectId: "f7a3f07f5892e7bd531bb1386ed8de16",
-  chains: [sepolia, polygonMumbai],
+  chains: [sepolia, polygonMumbai , lineaSepolia],
 });
-
 const queryClient = new QueryClient();
 const CONTRACT_ADDRESS = "0xB041C3cC6Fa9E24326f317AECb88BC457b480688";
-
 export default function Home() {
   const [file, setFile] = useState(null);
   const [pdfUrl, setPdfUrl] = useState("");
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
-  
   const TELEGRAM_BOT_TOKEN = "7569440772:AAHKtReqAY-UmuRcfyRNx0yU-HqAfH3KfNs"; 
 const TELEGRAM_CHAT_ID = "1371463172"; 
 const sendTelegramMessage = async (pdfTitle, ipfsUrl) => {
@@ -83,6 +80,7 @@ const uploadToBlockchain = async () => {
     alert("An error occurred while uploading to the blockchain.");
   }
 };
+
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
