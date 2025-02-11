@@ -24,40 +24,65 @@ export default function Home() {
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
-  const uploadToBlockchain = async () => {
-    if (!file) return alert("Select a file first!");
-    try {
-      const pdfIpfsUrl = await uploadFile(file);
-      console.log("Uploaded to IPFS:", pdfIpfsUrl);
-      if (!pdfIpfsUrl) {
-        console.error("IPFS upload failed!");
-        alert("IPFS upload failed!");
-        return;
-      }
-      if (typeof window !== "undefined" && window.ethereum) {
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        await window.ethereum.request({ method: "eth_requestAccounts" });
+  
+  const TELEGRAM_BOT_TOKEN = "7569440772:AAHKtReqAY-UmuRcfyRNx0yU-HqAfH3KfNs"; 
+const TELEGRAM_CHAT_ID = "1371463172"; 
+const sendTelegramMessage = async (pdfTitle, ipfsUrl) => {
+  const message = `*[New Research Article Dropped!]*\n\n📝 *Title:* ${pdfTitle}\n🔗 *IPFS Link:* ${ipfsUrl} `;
+  const telegramApiUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
-        const signer = await provider.getSigner();
-        console.log("Signer Address:", await signer.getAddress());
+  try {
+    await fetch(telegramApiUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message, parse_mode: "Markdown" }),
+    });
+    console.log("Telegram message sent!");
+  } catch (error) {
+    console.error("Error sending Telegram message:", error);
+  }
+};
 
-        const contract = new ethers.Contract(CONTRACT_ADDRESS, PdfStorageABI, signer);
-        console.log("Contract Address:", contract.address);
-
-        const tx = await contract.uploadPdf(pdfIpfsUrl);
-        console.log("Transaction Sent:", tx);
-        await tx.wait();
-        setPdfUrl(pdfIpfsUrl);
-        alert("Thank You for your valuable contribution!");
-      } else {
-        alert("MetaMask not detected");
-      }
-    } catch (error) {
-      console.error("Error uploading to blockchain:", error);
-      alert("An error occurred while uploading to the blockchain.");
+const uploadToBlockchain = async () => {
+  if (!file) return alert("Select a file first!");
+  try {
+    const pdfIpfsUrl = await uploadFile(file);
+    console.log("Uploaded to IPFS:", pdfIpfsUrl);
+    
+    if (!pdfIpfsUrl) {
+      console.error("IPFS upload failed!");
+      alert("IPFS upload failed!");
+      return;
     }
-  };
 
+    if (typeof window !== "undefined" && window.ethereum) {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      await window.ethereum.request({ method: "eth_requestAccounts" });
+
+      const signer = await provider.getSigner();
+      console.log("Signer Address:", await signer.getAddress());
+
+      const contract = new ethers.Contract(CONTRACT_ADDRESS, PdfStorageABI, signer);
+      
+      const tx = await contract.uploadPdf(pdfIpfsUrl);
+      console.log("Transaction Sent:", tx);
+      await tx.wait();
+      
+      setPdfUrl(pdfIpfsUrl);
+      alert("Thank You for your valuable contribution!");
+
+    
+      const pdfTitle = file.name; 
+      await sendTelegramMessage(pdfTitle, pdfIpfsUrl);
+
+    } else {
+      alert("MetaMask not detected");
+    }
+  } catch (error) {
+    console.error("Error uploading to blockchain:", error);
+    alert("An error occurred while uploading to the blockchain.");
+  }
+};
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
