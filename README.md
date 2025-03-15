@@ -9,7 +9,7 @@ Follow these steps to set up the project locally.
 ### 1️⃣ Clone the Repository
 ```sh
 git clone https://github.com/clatsonhacks/desci.git
-cd desci
+cd project
 ```
 
 ### 2️⃣ Install Dependencies
