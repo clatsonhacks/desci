@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# DeSci Hacks
 
-## Getting Started
+DeSci Hacks is a decentralized science platform that enables researchers to collaborate, share data, and build on open-source scientific projects.
 
-First, run the development server:
+## 🚀 Getting Started
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Follow these steps to set up the project locally.
+
+### 1️⃣ Clone the Repository
+```sh
+git clone https://github.com/clatsonhacks/desci.git
+cd desci
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2️⃣ Install Dependencies
+Ensure you have [Node.js](https://nodejs.org/) installed, then run:
+```sh
+npm install
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 3️⃣ Add Environment Variables
+Create a `.env` file in the root directory and add your MongoDB URL:
+```sh
+MONGO_DB_URL=your_mongodb_connection_string
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4️⃣ Run the Frontend
+Start the development server:
+```sh
+npm run dev
+```
 
-## Learn More
+Your frontend should now be running on `http://localhost:3000` 🎉.
 
-To learn more about Next.js, take a look at the following resources:
+### 5️⃣ Backend Information
+The backend is already deployed, so no setup is required!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🤝 Contributing
+Feel free to fork the repo, create a new branch, and submit a pull request.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📜 License
+This project is licensed under the MIT License.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
