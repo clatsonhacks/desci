@@ -1,4 +1,5 @@
-DeSci Hacks – Decentralized Science Collaboration
+
+#DeSci Hacks – Decentralized Science Collaboration
 🔬 DeSci Hacks is a decentralized platform that empowers researchers to collaborate, share data, and contribute to open-source scientific projects. Built with blockchain and Web3 principles, it ensures transparency, accessibility, and seamless knowledge exchange.
 🚀 Live Demo: desci-hack.vercel.app
 
